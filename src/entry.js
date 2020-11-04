@@ -36,7 +36,7 @@ const install = function installStatamicImage(Vue, options) {
   }
 
   Vue.prototype.$tailwindScreens = tailwindScreens;
-  Vue.protoype.$statamicAssetUrl = statamicAssetUrl;
+  Vue.prototype.$statamicAssetUrl = statamicAssetUrl;
 
   Vue.component("StatamicImage", component);
 };
