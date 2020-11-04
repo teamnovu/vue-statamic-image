@@ -478,7 +478,7 @@ var __vue_component__ = /*#__PURE__*/normalizeComponent({
   }
 
   Vue.prototype.$tailwindScreens = tailwindScreens;
-  Vue.protoype.$statamicAssetUrl = statamicAssetUrl;
+  Vue.prototype.$statamicAssetUrl = statamicAssetUrl;
   Vue.component("StatamicImage", __vue_component__);
 }; // Create module definition for Vue.use()
 

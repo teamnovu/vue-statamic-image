@@ -344,7 +344,7 @@ const install = function installStatamicImage(Vue, options) {
   }
 
   Vue.prototype.$tailwindScreens = tailwindScreens;
-  Vue.protoype.$statamicAssetUrl = statamicAssetUrl;
+  Vue.prototype.$statamicAssetUrl = statamicAssetUrl;
   Vue.component("StatamicImage", __vue_component__);
 }; // Create module definition for Vue.use()
 // to be registered via Vue.use() as well as Vue.component()
