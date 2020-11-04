@@ -6,7 +6,7 @@ const install = function installStatamicImage(Vue, options) {
   if (install.installed) return;
   install.installed = true;
 
-  let { tailwindScreens } = options;
+  let { tailwindScreens, statamicAssetUrl } = options;
 
   const isObj = (obj) => typeof obj === "object" && obj !== null;
 
@@ -26,7 +26,17 @@ const install = function installStatamicImage(Vue, options) {
     };
   }
 
+  if (
+    !statamicAssetUrl ||
+    !typeof statamicAssetUrl === "string" ||
+    !statamicAssetUrl instanceof String ||
+    statamicAssetUrl.length === 0
+  ) {
+    throw new Error("Statamic asset url was not properly configured.");
+  }
+
   Vue.prototype.$tailwindScreens = tailwindScreens;
+  Vue.protoype.$statamicAssetUrl = statamicAssetUrl;
 
   Vue.component("StatamicImage", component);
 };

@@ -128,7 +128,7 @@ export default {
       crop,
       format,
     }) {
-      let src = `${process.env.assetUrl}${this.src}?`;
+      let src = `${this.$statamicAssetUrl}${this.src}?`;
       if (width) src += `&w=${width}`;
       if (width && aspectRatio) src += `&h=${Math.round(width / aspectRatio)}`;
       if (quality) src += `&q=${quality}`;
