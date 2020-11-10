@@ -2,7 +2,7 @@
   <img
     ref="imageRef"
     @load="onLoaded"
-    :src="originalDataUrl"
+    :src="originalUrl"
     :srcset="imgSrcSet"
     :sizes="sizes"
     width="100%"
@@ -67,6 +67,10 @@ export default {
       required: false,
       default: true,
       type: Boolean,
+    },
+    placeholderDataUrl: {
+      required: false,
+      type: String,
     },
   },
   data() {
@@ -148,11 +152,11 @@ export default {
       );
 
       if (this.usePlaceholder) {
-        srcSet.push(this.placeholderDataUrl + " 32w");
+        srcSet.push(this.placeholderUrl + " 32w");
       }
       return srcSet.join(",");
     },
-    originalDataUrl() {
+    originalUrl() {
       return this.generateSrc({
         quality: this.quality,
         blur: this.blur,
@@ -163,7 +167,7 @@ export default {
         crop: this.crop,
       });
     },
-    placeholderDataUrl() {
+    placeholderUrl() {
       if (this.placeholderDataUrl && !this.aspectRatio) {
         return this.placeholderDataUrl;
       }

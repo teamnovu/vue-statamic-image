@@ -187,6 +187,10 @@ var script = {
       required: false,
       default: true,
       type: Boolean
+    },
+    placeholderDataUrl: {
+      required: false,
+      type: String
     }
   },
   data: function data() {
@@ -297,12 +301,12 @@ var script = {
       });
 
       if (this.usePlaceholder) {
-        srcSet.push(this.placeholderDataUrl + " 32w");
+        srcSet.push(this.placeholderUrl + " 32w");
       }
 
       return srcSet.join(",");
     },
-    originalDataUrl: function originalDataUrl() {
+    originalUrl: function originalUrl() {
       return this.generateSrc({
         quality: this.quality,
         blur: this.blur,
@@ -313,7 +317,7 @@ var script = {
         crop: this.crop
       });
     },
-    placeholderDataUrl: function placeholderDataUrl() {
+    placeholderUrl: function placeholderUrl() {
       var _this$generateSrc;
 
       if (this.placeholderDataUrl && !this.aspectRatio) {
@@ -417,7 +421,7 @@ var __vue_render__ = function __vue_render__() {
   return _c('img', {
     ref: "imageRef",
     attrs: {
-      "src": _vm.originalDataUrl,
+      "src": _vm.originalUrl,
       "srcset": _vm.imgSrcSet,
       "sizes": _vm.sizes,
       "width": "100%"
@@ -437,7 +441,7 @@ var __vue_inject_styles__ = undefined;
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-4a567421";
+var __vue_module_identifier__ = "data-v-3e8d716c";
 /* functional template */
 
 var __vue_is_functional_template__ = false;

@@ -66,6 +66,10 @@ var script = {
       required: false,
       default: true,
       type: Boolean
+    },
+    placeholderDataUrl: {
+      required: false,
+      type: String
     }
   },
 
@@ -151,13 +155,13 @@ var script = {
       }) + ` ${size}w`);
 
       if (this.usePlaceholder) {
-        srcSet.push(this.placeholderDataUrl + " 32w");
+        srcSet.push(this.placeholderUrl + " 32w");
       }
 
       return srcSet.join(",");
     },
 
-    originalDataUrl() {
+    originalUrl() {
       return this.generateSrc({
         quality: this.quality,
         blur: this.blur,
@@ -169,7 +173,7 @@ var script = {
       });
     },
 
-    placeholderDataUrl() {
+    placeholderUrl() {
       if (this.placeholderDataUrl && !this.aspectRatio) {
         return this.placeholderDataUrl;
       }
@@ -278,7 +282,7 @@ var __vue_render__ = function () {
   return _c('img', {
     ref: "imageRef",
     attrs: {
-      "src": _vm.originalDataUrl,
+      "src": _vm.originalUrl,
       "srcset": _vm.imgSrcSet,
       "sizes": _vm.sizes,
       "width": "100%"
