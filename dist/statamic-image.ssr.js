@@ -156,19 +156,11 @@ var script = {
       required: false,
       type: String
     },
-    orient: {
-      required: false,
-      type: String
-    },
     format: {
       required: false,
       type: String
     },
     fallbackWidth: {
-      required: false,
-      type: Number
-    },
-    height: {
       required: false,
       type: Number
     },
@@ -204,7 +196,7 @@ var script = {
     };
   },
   created: function created() {
-    var screens = Object.entries(this.$tailwindScreens).map(function (_ref) {
+    var screens = Object.entries(this.$screenSizes).map(function (_ref) {
       var _ref2 = _slicedToArray(_ref, 2),
           key = _ref2[0],
           value = _ref2[1];
@@ -303,7 +295,11 @@ var script = {
           aspectRatio: _this3.aspectRatio
         }) + " ".concat(size, "w");
       });
-      srcSet.push(this.placeholderDataUrl + " 32w");
+
+      if (this.usePlaceholder) {
+        srcSet.push(this.placeholderDataUrl + " 32w");
+      }
+
       return srcSet.join(",");
     },
     originalDataUrl: function originalDataUrl() {
@@ -311,7 +307,6 @@ var script = {
         quality: this.quality,
         blur: this.blur,
         width: this.fallbackWidth,
-        height: this.height,
         fit: this.fit,
         format: this.format,
         aspectRatio: this.aspectRatio,
@@ -321,6 +316,10 @@ var script = {
     placeholderDataUrl: function placeholderDataUrl() {
       var _this$generateSrc;
 
+      if (this.placeholderDataUrl && !this.aspectRatio) {
+        return this.placeholderDataUrl;
+      }
+
       return this.generateSrc((_this$generateSrc = {
         blur: this.placeholderBlur,
         aspectRatio: this.aspectRatio,
@@ -328,7 +327,7 @@ var script = {
         width: this.placeholderWidth,
         fit: this.fit,
         format: this.format
-      }, _defineProperty(_this$generateSrc, "aspectRatio", this.aspectRatio), _defineProperty(_this$generateSrc, "orient", this.orient), _defineProperty(_this$generateSrc, "crop", this.crop), _this$generateSrc));
+      }, _defineProperty(_this$generateSrc, "aspectRatio", this.aspectRatio), _defineProperty(_this$generateSrc, "crop", this.crop), _this$generateSrc));
     }
   }
 };function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
@@ -438,7 +437,7 @@ var __vue_inject_styles__ = undefined;
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-d2b8311a";
+var __vue_module_identifier__ = "data-v-4a567421";
 /* functional template */
 
 var __vue_is_functional_template__ = false;
@@ -451,33 +450,33 @@ var __vue_is_functional_template__ = false;
 var __vue_component__ = /*#__PURE__*/normalizeComponent({
   render: __vue_render__,
   staticRenderFns: __vue_staticRenderFns__
-}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);var install = function installStatamicImage(Vue, options) {
+}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);var defaultScreenSizes = {
+  xs: "320px",
+  sm: "640px",
+  md: "768px",
+  lg: "1024px",
+  xl: "1280px",
+  "2xl": "1600px",
+  "3xl": "2000px"
+};var install = function installStatamicImage(Vue, options) {
   if (install.installed) return;
   install.installed = true;
-  var tailwindScreens = options.tailwindScreens,
+  var screenSizes = options.screenSizes,
       statamicAssetUrl = options.statamicAssetUrl;
 
   var isObj = function isObj(obj) {
     return _typeof(obj) === "object" && obj !== null;
   };
 
-  if (!tailwindScreens || !isObj(tailwindScreens) || Object.keys(tailwindScreens).length === 0) {
-    tailwindScreens = {
-      xs: "320px",
-      sm: "640px",
-      md: "768px",
-      lg: "1024px",
-      xl: "1280px",
-      "2xl": "1600px",
-      "3xl": "2000px"
-    };
+  if (!screenSizes || !isObj(screenSizes) || Object.keys(screenSizes).length === 0) {
+    screenSizes = defaultScreenSizes;
   }
 
   if (!statamicAssetUrl || !_typeof(statamicAssetUrl) === "string" || !statamicAssetUrl instanceof String || statamicAssetUrl.length === 0) {
     throw new Error("Statamic asset url was not properly configured.");
   }
 
-  Vue.prototype.$tailwindScreens = tailwindScreens;
+  Vue.prototype.$screenSizes = screenSizes;
   Vue.prototype.$statamicAssetUrl = statamicAssetUrl;
   Vue.component("StatamicImage", __vue_component__);
 }; // Create module definition for Vue.use()

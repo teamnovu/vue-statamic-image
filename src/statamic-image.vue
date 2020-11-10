@@ -36,19 +36,11 @@ export default {
       required: false,
       type: String,
     },
-    orient: {
-      required: false,
-      type: String,
-    },
     format: {
       required: false,
       type: String,
     },
     fallbackWidth: {
-      required: false,
-      type: Number,
-    },
-    height: {
       required: false,
       type: Number,
     },
@@ -84,7 +76,7 @@ export default {
     };
   },
   created() {
-    const screens = Object.entries(this.$tailwindScreens)
+    const screens = Object.entries(this.$screenSizes)
       .map(([key, value]) => ({
         breakpoint: key,
         media: `min-width: ${value}`,
@@ -155,7 +147,9 @@ export default {
           }) + ` ${size}w`
       );
 
-      srcSet.push(this.placeholderDataUrl + " 32w");
+      if (this.usePlaceholder) {
+        srcSet.push(this.placeholderDataUrl + " 32w");
+      }
       return srcSet.join(",");
     },
     originalDataUrl() {
@@ -163,7 +157,6 @@ export default {
         quality: this.quality,
         blur: this.blur,
         width: this.fallbackWidth,
-        height: this.height,
         fit: this.fit,
         format: this.format,
         aspectRatio: this.aspectRatio,
@@ -171,6 +164,10 @@ export default {
       });
     },
     placeholderDataUrl() {
+      if (this.placeholderDataUrl && !this.aspectRatio) {
+        return this.placeholderDataUrl;
+      }
+
       return this.generateSrc({
         blur: this.placeholderBlur,
         aspectRatio: this.aspectRatio,
@@ -179,7 +176,6 @@ export default {
         fit: this.fit,
         format: this.format,
         aspectRatio: this.aspectRatio,
-        orient: this.orient,
         crop: this.crop,
       });
     },

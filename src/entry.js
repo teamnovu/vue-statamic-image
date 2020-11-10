@@ -1,29 +1,22 @@
 // Import vue component
 import component from "@/statamic-image.vue";
+import defaultScreenSizes from "./default-screen-sizes";
 
 // install function executed by Vue.use()
 const install = function installStatamicImage(Vue, options) {
   if (install.installed) return;
   install.installed = true;
 
-  let { tailwindScreens, statamicAssetUrl } = options;
+  let { screenSizes, statamicAssetUrl } = options;
 
   const isObj = (obj) => typeof obj === "object" && obj !== null;
 
   if (
-    !tailwindScreens ||
-    !isObj(tailwindScreens) ||
-    Object.keys(tailwindScreens).length === 0
+    !screenSizes ||
+    !isObj(screenSizes) ||
+    Object.keys(screenSizes).length === 0
   ) {
-    tailwindScreens = {
-      xs: "320px",
-      sm: "640px",
-      md: "768px",
-      lg: "1024px",
-      xl: "1280px",
-      "2xl": "1600px",
-      "3xl": "2000px",
-    };
+    screenSizes = defaultScreenSizes;
   }
 
   if (
@@ -35,7 +28,7 @@ const install = function installStatamicImage(Vue, options) {
     throw new Error("Statamic asset url was not properly configured.");
   }
 
-  Vue.prototype.$tailwindScreens = tailwindScreens;
+  Vue.prototype.$screenSizes = screenSizes;
   Vue.prototype.$statamicAssetUrl = statamicAssetUrl;
 
   Vue.component("StatamicImage", component);

@@ -35,19 +35,11 @@ var script = {
       required: false,
       type: String
     },
-    orient: {
-      required: false,
-      type: String
-    },
     format: {
       required: false,
       type: String
     },
     fallbackWidth: {
-      required: false,
-      type: Number
-    },
-    height: {
       required: false,
       type: Number
     },
@@ -85,7 +77,7 @@ var script = {
   },
 
   created() {
-    const screens = Object.entries(this.$tailwindScreens).map(([key, value]) => ({
+    const screens = Object.entries(this.$screenSizes).map(([key, value]) => ({
       breakpoint: key,
       media: `min-width: ${value}`,
       size: value
@@ -157,7 +149,11 @@ var script = {
         crop: this.crop,
         aspectRatio: this.aspectRatio
       }) + ` ${size}w`);
-      srcSet.push(this.placeholderDataUrl + " 32w");
+
+      if (this.usePlaceholder) {
+        srcSet.push(this.placeholderDataUrl + " 32w");
+      }
+
       return srcSet.join(",");
     },
 
@@ -166,7 +162,6 @@ var script = {
         quality: this.quality,
         blur: this.blur,
         width: this.fallbackWidth,
-        height: this.height,
         fit: this.fit,
         format: this.format,
         aspectRatio: this.aspectRatio,
@@ -175,6 +170,10 @@ var script = {
     },
 
     placeholderDataUrl() {
+      if (this.placeholderDataUrl && !this.aspectRatio) {
+        return this.placeholderDataUrl;
+      }
+
       return this.generateSrc({
         blur: this.placeholderBlur,
         aspectRatio: this.aspectRatio,
@@ -183,7 +182,6 @@ var script = {
         fit: this.fit,
         format: this.format,
         aspectRatio: this.aspectRatio,
-        orient: this.orient,
         crop: this.crop
       });
     }
@@ -315,35 +313,37 @@ const __vue_component__ = /*#__PURE__*/normalizeComponent({
   staticRenderFns: __vue_staticRenderFns__
 }, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
 
+var defaultScreenSizes = {
+  xs: "320px",
+  sm: "640px",
+  md: "768px",
+  lg: "1024px",
+  xl: "1280px",
+  "2xl": "1600px",
+  "3xl": "2000px"
+};
+
 // Import vue component
 
 const install = function installStatamicImage(Vue, options) {
   if (install.installed) return;
   install.installed = true;
   let {
-    tailwindScreens,
+    screenSizes,
     statamicAssetUrl
   } = options;
 
   const isObj = obj => typeof obj === "object" && obj !== null;
 
-  if (!tailwindScreens || !isObj(tailwindScreens) || Object.keys(tailwindScreens).length === 0) {
-    tailwindScreens = {
-      xs: "320px",
-      sm: "640px",
-      md: "768px",
-      lg: "1024px",
-      xl: "1280px",
-      "2xl": "1600px",
-      "3xl": "2000px"
-    };
+  if (!screenSizes || !isObj(screenSizes) || Object.keys(screenSizes).length === 0) {
+    screenSizes = defaultScreenSizes;
   }
 
   if (!statamicAssetUrl || !typeof statamicAssetUrl === "string" || !statamicAssetUrl instanceof String || statamicAssetUrl.length === 0) {
     throw new Error("Statamic asset url was not properly configured.");
   }
 
-  Vue.prototype.$tailwindScreens = tailwindScreens;
+  Vue.prototype.$screenSizes = screenSizes;
   Vue.prototype.$statamicAssetUrl = statamicAssetUrl;
   Vue.component("StatamicImage", __vue_component__);
 }; // Create module definition for Vue.use()
