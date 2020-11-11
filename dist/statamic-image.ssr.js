@@ -202,7 +202,6 @@ function _nonIterableRest() {
     this.screens = screens;
   },
   mounted: function mounted() {
-    console.log(this.$statamicBaseUrl, this.$$statamicGlideApiEndpoint, this.src);
     window.addEventListener("resize", this.onResize, {
       passive: true
     });
@@ -446,7 +445,7 @@ var __vue_inject_styles__ = undefined;
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-9a4a844e";
+var __vue_module_identifier__ = "data-v-75f4df24";
 /* functional template */
 
 var __vue_is_functional_template__ = false;

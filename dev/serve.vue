@@ -1,17 +1,17 @@
 <script>
-import Vue from 'vue';
-import StatamicImage from '@/statamic-image.vue';
+import Vue from "vue";
+import StatamicImage from "@/statamic-image.vue";
 
 export default Vue.extend({
-  name: 'ServeDev',
+  name: "ServeDev",
   components: {
-    StatamicImage
-  }
+    StatamicImage,
+  },
 });
 </script>
 
 <template>
   <div id="app">
-    <statamic-image />
+    <statamic-image src="/assets/img.jpg" />
   </div>
 </template>

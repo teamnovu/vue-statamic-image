@@ -95,11 +95,6 @@ export default {
     this.screens = screens;
   },
   mounted() {
-    console.log(
-      this.$statamicBaseUrl,
-      this.$$statamicGlideApiEndpoint,
-      this.src
-    );
     window.addEventListener("resize", this.onResize, { passive: true });
   },
   beforeDestroy() {
