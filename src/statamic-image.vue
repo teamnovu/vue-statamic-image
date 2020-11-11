@@ -148,7 +148,7 @@ export default {
   computed: {
     fileTypeSupported() {
       const regex = /(?:\.([^.]+))?$/;
-      const fileExtension = re.exec(this.src)[1];
+      const fileExtension = regex.exec(this.src)[1];
 
       return (
         fileExtension &&
