@@ -12,6 +12,8 @@
 //
 //
 //
+//
+//
 var script = {
   props: {
     src: {
@@ -103,9 +105,12 @@ var script = {
     updateSizes() {
       return new Promise(resolve => {
         window.requestAnimationFrame(() => {
-          const imageWidth = this.$refs.imageRef.getBoundingClientRect().width;
-          const size = Math.ceil(imageWidth / window.innerWidth * 100);
-          this.sizes = `${size}vw`;
+          if (this.$refs.imageRef) {
+            const imageWidth = this.$refs.imageRef.getBoundingClientRect().width;
+            const size = Math.ceil(imageWidth / window.innerWidth * 100);
+            this.sizes = `${size}vw`;
+          }
+
           resolve();
         });
       });
@@ -130,6 +135,10 @@ var script = {
       crop,
       format
     }) {
+      if (!this.fileTypeSupported) {
+        return `${this.$statamicAssetUrl}${this.src}`;
+      }
+
       let src = `${this.$statamicAssetUrl}${this.src}?`;
       if (width) src += `&w=${width}`;
       if (width && aspectRatio) src += `&h=${Math.round(width / aspectRatio)}`;
@@ -143,6 +152,11 @@ var script = {
 
   },
   computed: {
+    fileTypeSupported() {
+      const fileExtension = re.exec(this.src)[1];
+      return fileExtension && ["jpg", "png", "gif", "webp"].includes(fileExtension.toLowerCase());
+    },
+
     imgSrcSet() {
       let sizes = this.screens.map(screen => screen.size.replace("px", ""));
       const srcSet = sizes.map(size => this.generateSrc({
@@ -279,7 +293,7 @@ var __vue_render__ = function () {
 
   var _c = _vm._self._c || _h;
 
-  return _c('img', {
+  return _vm.fileTypeSupported ? _c('img', {
     ref: "imageRef",
     attrs: {
       "src": _vm.originalUrl,
@@ -289,6 +303,11 @@ var __vue_render__ = function () {
     },
     on: {
       "load": _vm.onLoaded
+    }
+  }) : _c('img', {
+    attrs: {
+      "src": _vm.originalUrl,
+      "width": "100%"
     }
   });
 };

@@ -1,5 +1,6 @@
 <template>
   <img
+    v-if="fileTypeSupported"
     ref="imageRef"
     @load="onLoaded"
     :src="originalUrl"
@@ -7,6 +8,7 @@
     :sizes="sizes"
     width="100%"
   />
+  <img v-else :src="originalUrl" width="100%" />
 </template>
 
 <style>
@@ -100,9 +102,12 @@ export default {
     updateSizes() {
       return new Promise((resolve) => {
         window.requestAnimationFrame(() => {
-          const imageWidth = this.$refs.imageRef.getBoundingClientRect().width;
-          const size = Math.ceil((imageWidth / window.innerWidth) * 100);
-          this.sizes = `${size}vw`;
+          if (this.$refs.imageRef) {
+            const imageWidth = this.$refs.imageRef.getBoundingClientRect()
+              .width;
+            const size = Math.ceil((imageWidth / window.innerWidth) * 100);
+            this.sizes = `${size}vw`;
+          }
           resolve();
         });
       });
@@ -124,6 +129,10 @@ export default {
       crop,
       format,
     }) {
+      if (!this.fileTypeSupported) {
+        return `${this.$statamicAssetUrl}${this.src}`;
+      }
+
       let src = `${this.$statamicAssetUrl}${this.src}?`;
       if (width) src += `&w=${width}`;
       if (width && aspectRatio) src += `&h=${Math.round(width / aspectRatio)}`;
@@ -137,6 +146,15 @@ export default {
     },
   },
   computed: {
+    fileTypeSupported() {
+      const regex = /(?:\.([^.]+))?$/;
+      const fileExtension = re.exec(this.src)[1];
+
+      return (
+        fileExtension &&
+        ["jpg", "png", "gif", "webp"].includes(fileExtension.toLowerCase())
+      );
+    },
     imgSrcSet() {
       let sizes = this.screens.map((screen) => screen.size.replace("px", ""));
       const srcSet = sizes.map(

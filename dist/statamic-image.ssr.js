@@ -133,6 +133,8 @@ function _nonIterableRest() {
 //
 //
 //
+//
+//
 var script = {
   props: {
     src: {
@@ -229,10 +231,13 @@ var script = {
 
       return new Promise(function (resolve) {
         window.requestAnimationFrame(function () {
-          var imageWidth = _this.$refs.imageRef.getBoundingClientRect().width;
+          if (_this.$refs.imageRef) {
+            var imageWidth = _this.$refs.imageRef.getBoundingClientRect().width;
 
-          var size = Math.ceil(imageWidth / window.innerWidth * 100);
-          _this.sizes = "".concat(size, "vw");
+            var size = Math.ceil(imageWidth / window.innerWidth * 100);
+            _this.sizes = "".concat(size, "vw");
+          }
+
           resolve();
         });
       });
@@ -271,6 +276,11 @@ var script = {
           fit = _ref3.fit,
           crop = _ref3.crop,
           format = _ref3.format;
+
+      if (!this.fileTypeSupported) {
+        return "".concat(this.$statamicAssetUrl).concat(this.src);
+      }
+
       var src = "".concat(this.$statamicAssetUrl).concat(this.src, "?");
       if (width) src += "&w=".concat(width);
       if (width && aspectRatio) src += "&h=".concat(Math.round(width / aspectRatio));
@@ -283,6 +293,10 @@ var script = {
     }
   },
   computed: {
+    fileTypeSupported: function fileTypeSupported() {
+      var fileExtension = re.exec(this.src)[1];
+      return fileExtension && ["jpg", "png", "gif", "webp"].includes(fileExtension.toLowerCase());
+    },
     imgSrcSet: function imgSrcSet() {
       var _this3 = this;
 
@@ -418,7 +432,7 @@ var __vue_render__ = function __vue_render__() {
 
   var _c = _vm._self._c || _h;
 
-  return _c('img', {
+  return _vm.fileTypeSupported ? _c('img', {
     ref: "imageRef",
     attrs: {
       "src": _vm.originalUrl,
@@ -428,6 +442,11 @@ var __vue_render__ = function __vue_render__() {
     },
     on: {
       "load": _vm.onLoaded
+    }
+  }) : _c('img', {
+    attrs: {
+      "src": _vm.originalUrl,
+      "width": "100%"
     }
   }, []);
 };
@@ -441,7 +460,7 @@ var __vue_inject_styles__ = undefined;
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-3e8d716c";
+var __vue_module_identifier__ = "data-v-4b67c4e3";
 /* functional template */
 
 var __vue_is_functional_template__ = false;
