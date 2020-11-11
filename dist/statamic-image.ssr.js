@@ -202,6 +202,7 @@ function _nonIterableRest() {
     this.screens = screens;
   },
   mounted: function mounted() {
+    console.log(this.$statamicBaseUrl, this.$$statamicGlideApiEndpoint, this.src);
     window.addEventListener("resize", this.onResize, {
       passive: true
     });
@@ -261,7 +262,7 @@ function _nonIterableRest() {
           crop = _ref3.crop,
           format = _ref3.format;
 
-      if (!this.fileTypeSupported || !this.$statamicGlideApiEndpoint) {
+      if (!this.fileTypeSupported || this.$statamicGlideApiEndpoint) {
         return urlJoin__default['default'](this.$statamicBaseUrl, this.src);
       }
 
@@ -445,7 +446,7 @@ var __vue_inject_styles__ = undefined;
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-75f4df24";
+var __vue_module_identifier__ = "data-v-05e3a914";
 /* functional template */
 
 var __vue_is_functional_template__ = false;
@@ -483,6 +484,10 @@ var __vue_component__ = /*#__PURE__*/normalizeComponent({
 
   if (!statamicBaseUrl || !_typeof(statamicBaseUrl) === "string" || !statamicBaseUrl instanceof String || statamicBaseUrl.length === 0) {
     throw new Error("statamicBaseUrl was not properly configured.");
+  }
+
+  if (typeof statamicGlideApiEndpoint === "undefined") {
+    statamicGlideApiEndpoint = "/api/img";
   }
 
   Vue.prototype.$screenSizes = screenSizes;

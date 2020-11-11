@@ -95,6 +95,11 @@ export default {
     this.screens = screens;
   },
   mounted() {
+    console.log(
+      this.$statamicBaseUrl,
+      this.$$statamicGlideApiEndpoint,
+      this.src
+    );
     window.addEventListener("resize", this.onResize, { passive: true });
   },
   beforeDestroy() {
@@ -131,7 +136,7 @@ export default {
       crop,
       format,
     }) {
-      if (!this.fileTypeSupported || !this.$statamicGlideApiEndpoint) {
+      if (!this.fileTypeSupported || this.$statamicGlideApiEndpoint) {
         return urlJoin(this.$statamicBaseUrl, this.src);
       }
 

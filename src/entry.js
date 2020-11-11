@@ -28,6 +28,10 @@ const install = function installStatamicImage(Vue, options) {
     throw new Error("statamicBaseUrl was not properly configured.");
   }
 
+  if (typeof statamicGlideApiEndpoint === "undefined") {
+    statamicGlideApiEndpoint = "/api/img";
+  }
+
   Vue.prototype.$screenSizes = screenSizes;
   Vue.prototype.$statamicGlideApiEndpoint = statamicGlideApiEndpoint;
   Vue.prototype.$statamicBaseUrl = statamicBaseUrl;

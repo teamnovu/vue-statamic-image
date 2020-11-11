@@ -79,6 +79,7 @@ var script = {
   },
 
   mounted() {
+    console.log(this.$statamicBaseUrl, this.$$statamicGlideApiEndpoint, this.src);
     window.addEventListener("resize", this.onResize, {
       passive: true
     });
@@ -122,7 +123,7 @@ var script = {
       crop,
       format
     }) {
-      if (!this.fileTypeSupported || !this.$statamicGlideApiEndpoint) {
+      if (!this.fileTypeSupported || this.$statamicGlideApiEndpoint) {
         return urlJoin(this.$statamicBaseUrl, this.src);
       }
 
@@ -353,6 +354,10 @@ const install = function installStatamicImage(Vue, options) {
 
   if (!statamicBaseUrl || !typeof statamicBaseUrl === "string" || !statamicBaseUrl instanceof String || statamicBaseUrl.length === 0) {
     throw new Error("statamicBaseUrl was not properly configured.");
+  }
+
+  if (typeof statamicGlideApiEndpoint === "undefined") {
+    statamicGlideApiEndpoint = "/api/img";
   }
 
   Vue.prototype.$screenSizes = screenSizes;
