@@ -262,7 +262,7 @@ function _nonIterableRest() {
           crop = _ref3.crop,
           format = _ref3.format;
 
-      if (!this.fileTypeSupported || this.$statamicGlideApiEndpoint) {
+      if (!this.fileTypeSupported || !this.$statamicGlideApiEndpoint) {
         return urlJoin__default['default'](this.$statamicBaseUrl, this.src);
       }
 
@@ -446,7 +446,7 @@ var __vue_inject_styles__ = undefined;
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-05e3a914";
+var __vue_module_identifier__ = "data-v-9a4a844e";
 /* functional template */
 
 var __vue_is_functional_template__ = false;

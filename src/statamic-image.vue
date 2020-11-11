@@ -136,7 +136,7 @@ export default {
       crop,
       format,
     }) {
-      if (!this.fileTypeSupported || this.$statamicGlideApiEndpoint) {
+      if (!this.fileTypeSupported || !this.$statamicGlideApiEndpoint) {
         return urlJoin(this.$statamicBaseUrl, this.src);
       }
 
