@@ -294,7 +294,8 @@ var script = {
   },
   computed: {
     fileTypeSupported: function fileTypeSupported() {
-      var fileExtension = re.exec(this.src)[1];
+      var regex = /(?:\.([^.]+))?$/;
+      var fileExtension = regex.exec(this.src)[1];
       return fileExtension && ["jpg", "png", "gif", "webp"].includes(fileExtension.toLowerCase());
     },
     imgSrcSet: function imgSrcSet() {
@@ -460,7 +461,7 @@ var __vue_inject_styles__ = undefined;
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-4b67c4e3";
+var __vue_module_identifier__ = "data-v-06f6edf2";
 /* functional template */
 
 var __vue_is_functional_template__ = false;
