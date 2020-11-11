@@ -7,7 +7,7 @@ const install = function installStatamicImage(Vue, options) {
   if (install.installed) return;
   install.installed = true;
 
-  let { screenSizes, statamicAssetUrl } = options;
+  let { screenSizes, statamicGlideApiEndpoint, statamicBaseUrl } = options;
 
   const isObj = (obj) => typeof obj === "object" && obj !== null;
 
@@ -20,16 +20,17 @@ const install = function installStatamicImage(Vue, options) {
   }
 
   if (
-    !statamicAssetUrl ||
-    !typeof statamicAssetUrl === "string" ||
-    !statamicAssetUrl instanceof String ||
-    statamicAssetUrl.length === 0
+    !statamicBaseUrl ||
+    !typeof statamicBaseUrl === "string" ||
+    !statamicBaseUrl instanceof String ||
+    statamicBaseUrl.length === 0
   ) {
-    throw new Error("Statamic asset url was not properly configured.");
+    throw new Error("statamicBaseUrl was not properly configured.");
   }
 
   Vue.prototype.$screenSizes = screenSizes;
-  Vue.prototype.$statamicAssetUrl = statamicAssetUrl;
+  Vue.prototype.$statamicGlideApiEndpoint = statamicGlideApiEndpoint;
+  Vue.prototype.$statamicBaseUrl = statamicBaseUrl;
 
   Vue.component("StatamicImage", component);
 };

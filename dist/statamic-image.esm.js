@@ -1,18 +1,5 @@
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+import urlJoin from 'url-join';
+
 //
 var script = {
   props: {
@@ -135,11 +122,11 @@ var script = {
       crop,
       format
     }) {
-      if (!this.fileTypeSupported) {
-        return `${this.$statamicAssetUrl}${this.src}`;
+      if (!this.fileTypeSupported || !this.$statamicGlideApiEndpoint) {
+        return urlJoin(this.$statamicBaseUrl, this.src);
       }
 
-      let src = `${this.$statamicAssetUrl}${this.src}?`;
+      let src = urlJoin(this.$statamicBaseUrl, this.$statamicGlideApiEndpoint, this.src);
       if (width) src += `&w=${width}`;
       if (width && aspectRatio) src += `&h=${Math.round(width / aspectRatio)}`;
       if (quality) src += `&q=${quality}`;
@@ -354,7 +341,8 @@ const install = function installStatamicImage(Vue, options) {
   install.installed = true;
   let {
     screenSizes,
-    statamicAssetUrl
+    statamicGlideApiEndpoint,
+    statamicBaseUrl
   } = options;
 
   const isObj = obj => typeof obj === "object" && obj !== null;
@@ -363,12 +351,13 @@ const install = function installStatamicImage(Vue, options) {
     screenSizes = defaultScreenSizes;
   }
 
-  if (!statamicAssetUrl || !typeof statamicAssetUrl === "string" || !statamicAssetUrl instanceof String || statamicAssetUrl.length === 0) {
-    throw new Error("Statamic asset url was not properly configured.");
+  if (!statamicBaseUrl || !typeof statamicBaseUrl === "string" || !statamicBaseUrl instanceof String || statamicBaseUrl.length === 0) {
+    throw new Error("statamicBaseUrl was not properly configured.");
   }
 
   Vue.prototype.$screenSizes = screenSizes;
-  Vue.prototype.$statamicAssetUrl = statamicAssetUrl;
+  Vue.prototype.$statamicGlideApiEndpoint = statamicGlideApiEndpoint;
+  Vue.prototype.$statamicBaseUrl = statamicBaseUrl;
   Vue.component("StatamicImage", __vue_component__);
 }; // Create module definition for Vue.use()
 // to be registered via Vue.use() as well as Vue.component()

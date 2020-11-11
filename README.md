@@ -16,7 +16,8 @@ npm i vue-statamic-image
 
 ```javascript
 Vue.use(StatamicImage, {
-  statamicAssetUrl: "localhost:3000/img",
+  statamicBaseUrl: "localhost:3000/api",
+  statamicGlideApiEndpoint: "img",
 });
 ```
 
@@ -28,10 +29,11 @@ Vue.use(StatamicImage, {
 
 ## Plugin Options
 
-| Option           | Default                                             | Required | Type   |
-| ---------------- | --------------------------------------------------- | -------- | ------ |
-| statamicAssetUrl | null                                                | true     | String |
-| screenSizes      | [default screen sizes](src/default-screen-sizes.js) | false    | Object |
+| Option                   | Default                                             | Required | Type   | Comment                                                                                    |
+| ------------------------ | --------------------------------------------------- | -------- | ------ | ------------------------------------------------------------------------------------------ |
+| statamicBaseUrl          | null                                                | true     | String |                                                                                            |
+| statamicGlideApiEndpoint | /img                                                | false    | String | If this option is not set, the image manipulation features of this component will not work |
+| screenSizes              | [default screen sizes](src/default-screen-sizes.js) | false    | Object |                                                                                            |
 
 ## Attributes
 

@@ -1,4 +1,4 @@
-'use strict';Object.defineProperty(exports,'__esModule',{value:true});function _typeof(obj) {
+'use strict';Object.defineProperty(exports,'__esModule',{value:true});var urlJoin=require('url-join');function _interopDefaultLegacy(e){return e&&typeof e==='object'&&'default'in e?e:{'default':e}}var urlJoin__default=/*#__PURE__*/_interopDefaultLegacy(urlJoin);function _typeof(obj) {
   "@babel/helpers - typeof";
 
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -119,23 +119,7 @@ function _arrayLikeToArray(arr, len) {
 
 function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var script = {
+}var script = {
   props: {
     src: {
       required: true,
@@ -277,11 +261,11 @@ var script = {
           crop = _ref3.crop,
           format = _ref3.format;
 
-      if (!this.fileTypeSupported) {
-        return "".concat(this.$statamicAssetUrl).concat(this.src);
+      if (!this.fileTypeSupported || !this.$statamicGlideApiEndpoint) {
+        return urlJoin__default['default'](this.$statamicBaseUrl, this.src);
       }
 
-      var src = "".concat(this.$statamicAssetUrl).concat(this.src, "?");
+      var src = urlJoin__default['default'](this.$statamicBaseUrl, this.$statamicGlideApiEndpoint, this.src);
       if (width) src += "&w=".concat(width);
       if (width && aspectRatio) src += "&h=".concat(Math.round(width / aspectRatio));
       if (quality) src += "&q=".concat(quality);
@@ -461,7 +445,7 @@ var __vue_inject_styles__ = undefined;
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-06f6edf2";
+var __vue_module_identifier__ = "data-v-75f4df24";
 /* functional template */
 
 var __vue_is_functional_template__ = false;
@@ -486,7 +470,8 @@ var __vue_component__ = /*#__PURE__*/normalizeComponent({
   if (install.installed) return;
   install.installed = true;
   var screenSizes = options.screenSizes,
-      statamicAssetUrl = options.statamicAssetUrl;
+      statamicGlideApiEndpoint = options.statamicGlideApiEndpoint,
+      statamicBaseUrl = options.statamicBaseUrl;
 
   var isObj = function isObj(obj) {
     return _typeof(obj) === "object" && obj !== null;
@@ -496,12 +481,13 @@ var __vue_component__ = /*#__PURE__*/normalizeComponent({
     screenSizes = defaultScreenSizes;
   }
 
-  if (!statamicAssetUrl || !_typeof(statamicAssetUrl) === "string" || !statamicAssetUrl instanceof String || statamicAssetUrl.length === 0) {
-    throw new Error("Statamic asset url was not properly configured.");
+  if (!statamicBaseUrl || !_typeof(statamicBaseUrl) === "string" || !statamicBaseUrl instanceof String || statamicBaseUrl.length === 0) {
+    throw new Error("statamicBaseUrl was not properly configured.");
   }
 
   Vue.prototype.$screenSizes = screenSizes;
-  Vue.prototype.$statamicAssetUrl = statamicAssetUrl;
+  Vue.prototype.$statamicGlideApiEndpoint = statamicGlideApiEndpoint;
+  Vue.prototype.$statamicBaseUrl = statamicBaseUrl;
   Vue.component("StatamicImage", __vue_component__);
 }; // Create module definition for Vue.use()
 

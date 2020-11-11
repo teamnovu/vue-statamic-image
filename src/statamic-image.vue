@@ -15,6 +15,8 @@
 </style>
 
 <script>
+import urlJoin from "url-join";
+
 export default {
   props: {
     src: {
@@ -129,11 +131,15 @@ export default {
       crop,
       format,
     }) {
-      if (!this.fileTypeSupported) {
-        return `${this.$statamicAssetUrl}${this.src}`;
+      if (!this.fileTypeSupported || !this.$statamicGlideApiEndpoint) {
+        return urlJoin(this.$statamicBaseUrl, this.src);
       }
 
-      let src = `${this.$statamicAssetUrl}${this.src}?`;
+      let src = urlJoin(
+        this.$statamicBaseUrl,
+        this.$statamicGlideApiEndpoint,
+        this.src
+      );
       if (width) src += `&w=${width}`;
       if (width && aspectRatio) src += `&h=${Math.round(width / aspectRatio)}`;
       if (quality) src += `&q=${quality}`;
