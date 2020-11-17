@@ -135,18 +135,23 @@ export default {
         return urlJoin(this.$statamicBaseUrl, this.src);
       }
 
+      const queryParams = [];
+
+      if (width) queryParams.push(`w=${width}`);
+      if (width && aspectRatio)
+        queryParams.push(`h=${Math.round(width / aspectRatio)}`);
+      if (quality) queryParams.push(`=${quality}`);
+      if (blur) queryParams.push(`blur=${blur}`);
+      if (fit) queryParams.push(`fit=${fit}`);
+      if (crop) queryParams.push(`fit=${crop}`);
+      if (format) queryParams.push(`format=${format}`);
+
       let src = urlJoin(
         this.$statamicBaseUrl,
         this.$statamicGlideApiEndpoint,
-        this.src
+        this.src,
+        `?${queryParams.join("&")}`
       );
-      if (width) src += `&w=${width}`;
-      if (width && aspectRatio) src += `&h=${Math.round(width / aspectRatio)}`;
-      if (quality) src += `&q=${quality}`;
-      if (blur) src += `&blur=${blur}`;
-      if (fit) src += `&fit=${fit}`;
-      if (crop) src += `&fit=${crop}`;
-      if (format) src += `&format=${format}`;
 
       return src;
     },

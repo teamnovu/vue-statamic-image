@@ -265,14 +265,15 @@ function _nonIterableRest() {
         return urlJoin__default['default'](this.$statamicBaseUrl, this.src);
       }
 
-      var src = urlJoin__default['default'](this.$statamicBaseUrl, this.$statamicGlideApiEndpoint, this.src);
-      if (width) src += "&w=".concat(width);
-      if (width && aspectRatio) src += "&h=".concat(Math.round(width / aspectRatio));
-      if (quality) src += "&q=".concat(quality);
-      if (blur) src += "&blur=".concat(blur);
-      if (fit) src += "&fit=".concat(fit);
-      if (crop) src += "&fit=".concat(crop);
-      if (format) src += "&format=".concat(format);
+      var queryParams = [];
+      if (width) queryParams.push("w=".concat(width));
+      if (width && aspectRatio) queryParams.push("h=".concat(Math.round(width / aspectRatio)));
+      if (quality) queryParams.push("=".concat(quality));
+      if (blur) queryParams.push("blur=".concat(blur));
+      if (fit) queryParams.push("fit=".concat(fit));
+      if (crop) queryParams.push("fit=".concat(crop));
+      if (format) queryParams.push("format=".concat(format));
+      var src = urlJoin__default['default'](this.$statamicBaseUrl, this.$statamicGlideApiEndpoint, this.src, "?".concat(queryParams.join("&")));
       return src;
     }
   },
@@ -445,7 +446,7 @@ var __vue_inject_styles__ = undefined;
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-75f4df24";
+var __vue_module_identifier__ = "data-v-d98cc936";
 /* functional template */
 
 var __vue_is_functional_template__ = false;
@@ -486,7 +487,7 @@ var __vue_component__ = /*#__PURE__*/normalizeComponent({
   }
 
   if (typeof statamicGlideApiEndpoint === "undefined") {
-    statamicGlideApiEndpoint = "/api/img";
+    statamicGlideApiEndpoint = "/img";
   }
 
   Vue.prototype.$screenSizes = screenSizes;

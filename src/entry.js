@@ -29,7 +29,7 @@ const install = function installStatamicImage(Vue, options) {
   }
 
   if (typeof statamicGlideApiEndpoint === "undefined") {
-    statamicGlideApiEndpoint = "/api/img";
+    statamicGlideApiEndpoint = "/img";
   }
 
   Vue.prototype.$screenSizes = screenSizes;
