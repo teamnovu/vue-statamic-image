@@ -10,7 +10,7 @@ var script = {
     quality: {
       required: false,
       type: Number,
-      default: 70
+      default: 90
     },
     blur: {
       required: false,
@@ -129,11 +129,11 @@ var script = {
       const queryParams = [];
       if (width) queryParams.push(`w=${width}`);
       if (width && aspectRatio) queryParams.push(`h=${Math.round(width / aspectRatio)}`);
-      if (quality) queryParams.push(`=${quality}`);
+      if (quality) queryParams.push(`q=${quality}`);
       if (blur) queryParams.push(`blur=${blur}`);
       if (fit) queryParams.push(`fit=${fit}`);
       if (crop) queryParams.push(`fit=${crop}`);
-      if (format) queryParams.push(`format=${format}`);
+      if (format) queryParams.push(`fm=${format}`);
       let src = urlJoin(this.$statamicBaseUrl, this.$statamicGlideApiEndpoint, this.src, `?${queryParams.join("&")}`);
       return src;
     }

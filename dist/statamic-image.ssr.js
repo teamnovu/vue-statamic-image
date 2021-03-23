@@ -128,7 +128,7 @@ function _nonIterableRest() {
     quality: {
       required: false,
       type: Number,
-      default: 70
+      default: 90
     },
     blur: {
       required: false,
@@ -268,11 +268,11 @@ function _nonIterableRest() {
       var queryParams = [];
       if (width) queryParams.push("w=".concat(width));
       if (width && aspectRatio) queryParams.push("h=".concat(Math.round(width / aspectRatio)));
-      if (quality) queryParams.push("=".concat(quality));
+      if (quality) queryParams.push("q=".concat(quality));
       if (blur) queryParams.push("blur=".concat(blur));
       if (fit) queryParams.push("fit=".concat(fit));
       if (crop) queryParams.push("fit=".concat(crop));
-      if (format) queryParams.push("format=".concat(format));
+      if (format) queryParams.push("fm=".concat(format));
       var src = urlJoin__default['default'](this.$statamicBaseUrl, this.$statamicGlideApiEndpoint, this.src, "?".concat(queryParams.join("&")));
       return src;
     }
@@ -446,7 +446,7 @@ var __vue_inject_styles__ = undefined;
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-d98cc936";
+var __vue_module_identifier__ = "data-v-797d6230";
 /* functional template */
 
 var __vue_is_functional_template__ = false;
