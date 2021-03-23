@@ -26,7 +26,7 @@ export default {
     quality: {
       required: false,
       type: Number,
-      default: 70,
+      default: 90,
     },
     blur: {
       required: false,
