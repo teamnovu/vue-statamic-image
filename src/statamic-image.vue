@@ -140,7 +140,7 @@ export default {
       if (width) queryParams.push(`w=${width}`);
       if (width && aspectRatio)
         queryParams.push(`h=${Math.round(width / aspectRatio)}`);
-      if (quality) queryParams.push(`=${quality}`);
+      if (quality) queryParams.push(`q=${quality}`);
       if (blur) queryParams.push(`blur=${blur}`);
       if (fit) queryParams.push(`fit=${fit}`);
       if (crop) queryParams.push(`fit=${crop}`);
