@@ -144,7 +144,7 @@ export default {
       if (blur) queryParams.push(`blur=${blur}`);
       if (fit) queryParams.push(`fit=${fit}`);
       if (crop) queryParams.push(`fit=${crop}`);
-      if (format) queryParams.push(`format=${format}`);
+      if (format) queryParams.push(`fm=${format}`);
 
       let src = urlJoin(
         this.$statamicBaseUrl,
