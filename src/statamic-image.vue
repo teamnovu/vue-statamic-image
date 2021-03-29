@@ -163,7 +163,7 @@ export default {
 
       return (
         fileExtension &&
-        ["jpg", "png", "gif", "webp"].includes(fileExtension.toLowerCase())
+        ["jpg", "png", "gif", "webp", "jpeg"].includes(fileExtension.toLowerCase())
       );
     },
     imgSrcSet() {
