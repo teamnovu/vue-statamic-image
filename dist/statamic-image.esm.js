@@ -143,7 +143,7 @@ var script = {
     fileTypeSupported() {
       const regex = /(?:\.([^.]+))?$/;
       const fileExtension = regex.exec(this.src)[1];
-      return fileExtension && ["jpg", "png", "gif", "webp"].includes(fileExtension.toLowerCase());
+      return fileExtension && ["jpg", "png", "gif", "webp", "jpeg"].includes(fileExtension.toLowerCase());
     },
 
     imgSrcSet() {

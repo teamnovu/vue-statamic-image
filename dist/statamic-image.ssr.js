@@ -281,7 +281,7 @@ function _nonIterableRest() {
     fileTypeSupported: function fileTypeSupported() {
       var regex = /(?:\.([^.]+))?$/;
       var fileExtension = regex.exec(this.src)[1];
-      return fileExtension && ["jpg", "png", "gif", "webp"].includes(fileExtension.toLowerCase());
+      return fileExtension && ["jpg", "png", "gif", "webp", "jpeg"].includes(fileExtension.toLowerCase());
     },
     imgSrcSet: function imgSrcSet() {
       var _this3 = this;
@@ -446,7 +446,7 @@ var __vue_inject_styles__ = undefined;
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-797d6230";
+var __vue_module_identifier__ = "data-v-78f3491c";
 /* functional template */
 
 var __vue_is_functional_template__ = false;
